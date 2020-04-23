@@ -1,3 +1,3 @@
-module github.com/RyanSiu/intro-to-golang
+module github.com/RyanSiu1995/intro-to-golang
 
 go 1.14
