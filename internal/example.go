@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sort"
 	"strings"
 )
 
@@ -31,25 +30,30 @@ func Run(argv ...bool) {
 		interactive = argv[0]
 	}
 	var numberOfInput int
+	if interactive {
+		fmt.Println("How many string you have?")
+	}
 	if _, err := fmt.Scanln(&numberOfInput); err != nil {
 		fmt.Println(err.Error())
 		os.Exit(1)
 	}
-	if interactive {
-		fmt.Println("How many string you have?")
-	}
 	reader := bufio.NewReader(os.Stdin)
 	var output out
 	for i := 0; i < numberOfInput; i++ {
-		fmt.Printf("What is your %d string?", i)
+		fmt.Printf("What is your %d string?\n", i+1)
 		s, err := reader.ReadString('\n')
 		if err != nil {
 			fmt.Println(err.Error())
 			os.Exit(1)
 		}
 		splitted := strings.Fields(s)
-		sort.Sort(sort.Reverse(sort.StringSlice(splitted)))
+		for k, j := 0, len(splitted)-1; k < j; k, j = k+1, j-1 {
+			splitted[k], splitted[j] = splitted[j], splitted[k]
+		}
 		output = append(output, strings.Join(splitted, " "))
+	}
+	if interactive {
+		fmt.Println("\n\nThe result of the reversed string:")
 	}
 	fmt.Print(output)
 }
