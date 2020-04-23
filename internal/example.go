@@ -40,7 +40,9 @@ func Run(argv ...bool) {
 	reader := bufio.NewReader(os.Stdin)
 	var output out
 	for i := 0; i < numberOfInput; i++ {
-		fmt.Printf("What is your %d string?\n", i+1)
+		if interactive {
+			fmt.Printf("What is your %d string?\n", i+1)
+		}
 		s, err := reader.ReadString('\n')
 		if err != nil {
 			fmt.Println(err.Error())
